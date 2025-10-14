@@ -1,7 +1,6 @@
 import 'package:darcom_app/core/helper/app_validator.dart';
 import 'package:darcom_app/core/utils/app_images.dart';
 import 'package:darcom_app/core/utils/app_padding.dart';
-import 'package:darcom_app/core/utils/app_route.dart';
 import 'package:darcom_app/core/widgets/custom_button.dart';
 import 'package:darcom_app/feature/auth/view/widgets/auth_template.dart';
 import 'package:darcom_app/feature/auth/view/widgets/custom_text_field.dart';

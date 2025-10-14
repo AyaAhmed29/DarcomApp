@@ -16,12 +16,12 @@ abstract class AppRoute {
   static const String homeView = '/HomeView';
   static const String navigationView = '/NavigationView';
   static const String searchView = '/SearchView';
-  static const String categoryView  = '/CategoryView ';
+  static const String categoryView = '/CategoryView';
   // static const String accountViewNavigationView';
-  
+
   static final router = GoRouter(
     routes: [
-      GoRoute(path: '/', builder: (context, state) => CategoryView()),
+      GoRoute(path: '/', builder: (context, state) => NavigationView()),
       GoRoute(
         path: forgotPasswordView,
         builder: (context, state) => const ForgotPasswordView(),
@@ -46,7 +46,7 @@ abstract class AppRoute {
         path: searchView,
         builder: (context, state) => const SearchView(),
       ),
-      GoRoute(path: categoryView , builder: (context, state) => CategoryView ()),
+      GoRoute(path: categoryView, builder: (context, state) => CategoryView()),
       GoRoute(path: homeView, builder: (context, state) => HomeView()),
     ],
   );

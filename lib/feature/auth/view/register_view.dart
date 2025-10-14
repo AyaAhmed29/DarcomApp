@@ -2,7 +2,6 @@ import 'package:darcom_app/core/helper/app_pop_up.dart';
 import 'package:darcom_app/core/utils/app_route.dart';
 import 'package:darcom_app/feature/auth/cubit/register_cubit/register_cubit.dart';
 import 'package:darcom_app/feature/auth/cubit/register_cubit/register_state.dart';
-import 'package:darcom_app/feature/auth/view/widgets/auth_prompt.dart';
 import 'package:darcom_app/feature/auth/view/widgets/auth_template.dart';
 import 'package:darcom_app/feature/auth/view/widgets/custom_register_form.dart';
 import 'package:darcom_app/generated/l10n.dart';

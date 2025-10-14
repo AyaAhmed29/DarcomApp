@@ -30,6 +30,8 @@ class FeatureItem extends StatelessWidget {
               return GestureDetector(
                 onTap: () {
                   GoRouter.of(context).push(AppRoute.categoryView);
+
+                  // GoRouter.of(context).push(AppRoute.categoryView);
                 },
                 child: Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 8),
