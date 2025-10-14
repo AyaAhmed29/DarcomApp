@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "426409977015",
+    "project_id": "darcomapp-97370",
+    "storage_bucket": "darcomapp-97370.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:426409977015:android:0b87f46b9004151503d932",
+        "android_client_info": {
+          "package_name": "com.example.darcom_app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCrCbtNSOWLOHctQamzyV-bc-NmotRVJ6Y"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
