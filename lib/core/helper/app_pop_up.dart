@@ -1,0 +1,16 @@
+import 'package:darcom_app/core/utils/app_colors.dart';
+import 'package:flutter/material.dart';
+
+abstract class AppPopUp {
+  static showSnackBar({required context, required text}) {
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(content: Text(text), backgroundColor: AppColors.lavender500),
+    );
+  }
+
+  static errorShowSnackBar({required context, required text}) {
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(content: Text(text), backgroundColor: AppColors.red),
+    );
+  }
+}
