@@ -1,180 +1,71 @@
-import 'package:darcom_app/core/utils/app_images.dart';
-import 'package:darcom_app/core/utils/app_padding.dart';
-import 'package:darcom_app/core/utils/app_styles.dart';
-import 'package:darcom_app/core/widgets/custom_appbar.dart';
-import 'package:darcom_app/feature/home/view/widgets/search_widget.dart';
-import 'package:darcom_app/generated/l10n.dart';
+import 'package:darcom_app/feature/home/cubit/search_cubit/search_cubit_cubit.dart';
+import 'package:darcom_app/feature/home/view/widgets/products_grid_view.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:darcom_app/feature/home/cubit/search_cubit/search_cubit_state.dart';
+import 'package:darcom_app/feature/home/data/repo/home_repo.dart';
 
-class SearchView extends StatefulWidget {
+class SearchView extends StatelessWidget {
   const SearchView({super.key});
 
   @override
-  State<SearchView> createState() => _SearchViewState();
+  Widget build(BuildContext context) {
+    return BlocProvider(
+      create: (_) => SearchCubit(HomeRepo())..loadAllProducts(),
+      child: const _SearchBody(),
+    );
+  }
 }
 
-class _SearchViewState extends State<SearchView> {
-  String query = '';
-  bool isSearching = false;
-
-  final List<String> recentSearches = [
-    'كنبة',
-    'غرفة نوم',
-    'طاولة طعام',
-    'مكتب',
-  ];
-
-  final List<Map<String, dynamic>> searchResults = [
-    {
-      'id': 1,
-      'name': 'كنبة عصرية فاخرة',
-      'price': '12,500 \$',
-      'image': Assets.imagesBedroomFurniture,
-      'rating': 4.8,
-      'discount': 'خصم 20%',
-    },
-    {
-      'id': 2,
-      'name': 'طقم غرفة نوم كامل',
-      'price': '25,000 \$',
-      'image': Assets.imagesBedroomFurniture,
-      'rating': 4.9,
-    },
-  ];
-
-  late final TextEditingController _controller;
+class _SearchBody extends StatefulWidget {
+  const _SearchBody();
 
   @override
-  void initState() {
-    super.initState();
-    _controller = TextEditingController();
-  }
+  State<_SearchBody> createState() => _SearchBodyState();
+}
 
-  @override
-  void dispose() {
-    _controller.dispose();
-    super.dispose();
-  }
-
-  void handleSearch(String text) {
-    setState(() {
-      query = text;
-      isSearching = text.isNotEmpty;
-    });
-  }
+class _SearchBodyState extends State<_SearchBody> {
+  final TextEditingController _controller = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: CustomAppBar(title: S.of(context).search),
+      appBar: AppBar(title: const Text('Search')),
       body: Column(
-        crossAxisAlignment: CrossAxisAlignment.end,
         children: [
-          SizedBox(height: 18.h),
-          SearchWidget(onChanged: handleSearch, controller: _controller),
-          const SizedBox(height: 10),
-          Expanded(
-            child: isSearching
-                ? SearchResultsWidget(
-                    results: searchResults,
-                    label: S.of(context).SearchResults,
-                    resultLabel: S.of(context).Result,
-                  )
-                : RecentSearchesWidget(
-                    recentSearches: recentSearches,
-                    onSelect: (s) {
-                      _controller.text = s;
-                      handleSearch(s);
-                    },
-                    title: S.of(context).Recentsearches,
-                  ),
+          Padding(
+            padding: const EdgeInsets.all(12),
+            child: TextField(
+              controller: _controller,
+              decoration: const InputDecoration(
+                hintText: 'Type product name...',
+                border: OutlineInputBorder(),
+              ),
+              onChanged: (value) {
+                context.read<SearchCubit>().search(value);
+              },
+            ),
           ),
-        ],
-      ),
-    );
-  }
-}
-
-class RecentSearchesWidget extends StatelessWidget {
-  final List<String> recentSearches;
-  final Function(String) onSelect;
-  final String title;
-
-  const RecentSearchesWidget({
-    super.key,
-    required this.recentSearches,
-    required this.onSelect,
-    required this.title,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: AppPadding.horizontal18,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(title, style: AppStyles.semiBold16),
-          const SizedBox(height: 10),
           Expanded(
-            child: ListView(
-              children: recentSearches
-                  .map(
-                    (s) => Card(
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(12),
-                      ),
-                      child: ListTile(
-                        onTap: () => onSelect(s),
-                        leading: const Icon(Icons.access_time),
-                        trailing: const Icon(Icons.close),
-                        title: Text(s),
-                      ),
-                    ),
-                  )
-                  .toList(),
+            child: BlocBuilder<SearchCubit, SearchState>(
+              builder: (context, state) {
+                if (state is SearchLoading) {
+                  return const Center(child: CircularProgressIndicator());
+                } else if (state is SearchLoaded) {
+                  final products = state.products;
+                  if (products.isEmpty) {
+                    return const Center(child: Text('No results found'));
+                  }
+                  return ProductsGridView(products: products);
+                } else if (state is SearchFailure) {
+                  return Center(child: Text(state.error));
+                }
+                return const Center(child: Text('Start searching...'));
+              },
             ),
           ),
         ],
       ),
-    );
-  }
-}
-
-class SearchResultsWidget extends StatelessWidget {
-  final List<Map<String, dynamic>> results;
-  final String label;
-  final String resultLabel;
-
-  const SearchResultsWidget({
-    super.key,
-    required this.results,
-    required this.label,
-    required this.resultLabel,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.end,
-      children: [
-        Padding(
-          padding: AppPadding.horizontal18,
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Text(label, style: AppStyles.semiBold16),
-              Text(
-                '${results.length} $resultLabel',
-                style: const TextStyle(color: Colors.grey),
-              ),
-            ],
-          ),
-        ),
-        const SizedBox(height: 10),
-        // Expanded(child: ProductsGridView(products: results)),
-      ],
     );
   }
 }

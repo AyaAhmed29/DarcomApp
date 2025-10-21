@@ -41,8 +41,8 @@ class FeatureItem extends StatelessWidget {
                     children: [
                       CustomCachImage(
                         imageUrl: category.imageUrl,
-                        height: 50,
-                        width: 50,
+                        height: 65,
+                        width: 65,
                       ),
 
                       const SizedBox(height: 6),

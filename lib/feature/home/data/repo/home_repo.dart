@@ -1,12 +1,13 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:darcom_app/feature/home/data/model/category_model.dart';
+import 'package:darcom_app/feature/home/data/model/product_model.dart';
 import 'package:darcom_app/feature/home/data/model/slider_model.dart';
 import 'package:dartz/dartz.dart';
 
 class HomeRepo {
   final _refCategories = FirebaseFirestore.instance.collection('categories');
   final _refSlider = FirebaseFirestore.instance.collection('slider');
-
+  final _refProducts = FirebaseFirestore.instance.collection('products');
   Future<Either<String, List<CategoryModel>>> getCategories() async {
     try {
       final snapshot = await _refCategories.get();
@@ -40,6 +41,55 @@ class HomeRepo {
       }
 
       return Right(categories);
+    } on FirebaseException catch (e) {
+      return Left('Firebase error: ${e.message}');
+    } catch (e) {
+      return Left('Unknown error: $e');
+    }
+  }
+
+  Future<Either<String, List<ProductModel>>> getProducts() async {
+    try {
+      final snapshot = await _refProducts.get();
+      final Products = snapshot.docs.map((doc) {
+        final data = doc.data();
+        return ProductModel.fromJson({'id': doc.id, ...data});
+      }).toList();
+
+      if (Products.isEmpty) {
+        return const Left('No c found');
+      }
+
+      return Right(Products);
+    } on FirebaseException catch (e) {
+      return Left('Firebase error: ${e.message}');
+    } catch (e) {
+      return Left('Unknown error: $e');
+    }
+  }
+
+  Future<Either<String, List<ProductModel>>> searchProducts(
+    String query,
+  ) async {
+    try {
+      final snapshot = await _refProducts.get();
+      final products = snapshot.docs
+          .map((doc) {
+            final data = doc.data();
+            return ProductModel.fromJson({'id': doc.id, ...data});
+          })
+          .where((product) {
+            final name = product.name.toLowerCase();
+            final search = query.toLowerCase();
+            return name.contains(search); 
+          })
+          .toList();
+
+      if (products.isEmpty) {
+        return const Left('No products found');
+      }
+
+      return Right(products);
     } on FirebaseException catch (e) {
       return Left('Firebase error: ${e.message}');
     } catch (e) {

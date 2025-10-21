@@ -1,14 +1,13 @@
-import 'package:darcom_app/core/utils/app_padding.dart';
 import 'package:darcom_app/core/utils/app_route.dart';
-import 'package:darcom_app/core/utils/app_styles.dart';
 import 'package:darcom_app/feature/home/cubit/get_category_cubit/get_categorycubit.dart';
+import 'package:darcom_app/feature/home/cubit/get_products_cubit/get_categorycubit.dart';
 import 'package:darcom_app/feature/home/cubit/get_slider_cubit/get_slider_cubit.dart';
-import 'package:darcom_app/feature/home/cubit/get_slider_cubit/get_slider_state.dart';
-import 'package:darcom_app/feature/home/view/widgets/OfferSlider.dart';
 import 'package:darcom_app/feature/home/view/widgets/all_feature.dart';
+import 'package:darcom_app/feature/home/view/widgets/all_products.dart';
+import 'package:darcom_app/feature/home/view/widgets/featured_products_header.dart';
 import 'package:darcom_app/feature/home/view/widgets/home_appbar.dart';
 import 'package:darcom_app/feature/home/view/widgets/search_widget.dart';
-import 'package:darcom_app/generated/l10n.dart';
+import 'package:darcom_app/feature/home/view/widgets/sliders.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
@@ -22,6 +21,7 @@ class HomeView extends StatelessWidget {
       providers: [
         BlocProvider(create: (context) => GetCategoryCubit()..loadCategories()),
         BlocProvider(create: (context) => GetSliderCubit()..loadSlider()),
+        BlocProvider(create: (context) => GetProductsCubit()..loadProducts()),
       ],
       child: Scaffold(
         body: RefreshIndicator(
@@ -43,40 +43,10 @@ class HomeView extends StatelessWidget {
                   GoRouter.of(context).push(AppRoute.searchView);
                 },
               ),
-              BlocBuilder<GetSliderCubit, GetSliderState>(
-                builder: (context, state) {
-                  if (state is GetSliderLoading) {
-                    return const Center(child: CircularProgressIndicator());
-                  }
-                  if (state is GetSliderFailure) {
-                    return Center(child: Text(state.errorMessage));
-                  }
-                  if (state is GetSliderSuccess) {
-                    return OfferSlider(sliderModel: state.sliderModel);
-                  }
-                  return const SizedBox.shrink();
-                },
-              ),
+              Sliders(),
               AllFeature(),
-              Padding(
-                padding: AppPadding.horizontal18,
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(
-                      S.of(context).FeaturedProducts,
-                      style: AppStyles.bold16,
-                    ),
-                    TextButton(
-                      onPressed: () {},
-                      child: Text(
-                        S.of(context).SeeAll,
-                        style: AppStyles.regular13,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
+              FeaturedProductsHeader(),
+              AllProducts(),
             ],
           ),
         ),
