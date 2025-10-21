@@ -2,7 +2,6 @@ import 'package:darcom_app/core/utils/app_images.dart';
 import 'package:darcom_app/core/utils/app_padding.dart';
 import 'package:darcom_app/core/utils/app_styles.dart';
 import 'package:darcom_app/core/widgets/custom_appbar.dart';
-import 'package:darcom_app/feature/home/view/widgets/products_grid_view.dart';
 import 'package:darcom_app/feature/home/view/widgets/search_widget.dart';
 import 'package:darcom_app/generated/l10n.dart';
 import 'package:flutter/material.dart';
@@ -174,7 +173,7 @@ class SearchResultsWidget extends StatelessWidget {
           ),
         ),
         const SizedBox(height: 10),
-        Expanded(child: ProductsGridView(products: results)),
+        // Expanded(child: ProductsGridView(products: results)),
       ],
     );
   }

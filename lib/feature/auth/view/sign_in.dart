@@ -30,7 +30,7 @@ class SignInView extends StatelessWidget {
               if (state is SignInSuccess) {
                 AppPopUp.showSnackBar(
                   context: context,
-                  text: S.of(context).logOutSuccessfully,
+                  text: S.of(context).loginSuccessfully,
                 );
 
                 AppRoute.router.go(AppRoute.homeView, extra: state.user);

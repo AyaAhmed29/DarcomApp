@@ -1,55 +1,47 @@
-// import 'package:flutter/material.dart';
-// import 'package:go_router/go_router.dart';
-// import 'package:talkai/core/utils/app_images.dart';
-// import 'package:talkai/core/utils/app_route.dart';
+import 'package:darcom_app/core/utils/app_images.dart';
+import 'package:darcom_app/core/utils/app_route.dart';
+import 'package:darcom_app/core/utils/app_styles.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:go_router/go_router.dart';
 
-// class SplashView extends StatefulWidget {
-//   const SplashView({super.key});
+class SplashView extends StatefulWidget {
+  const SplashView({super.key});
 
-//   @override
-//   State<SplashView> createState() => _SplashViewState();
-// }
+  @override
+  State<SplashView> createState() => _SplashViewState();
+}
 
-// class _SplashViewState extends State<SplashView>
-//     with SingleTickerProviderStateMixin {
-//   late AnimationController _controller;
-//   late Animation<Offset> _animation;
+class _SplashViewState extends State<SplashView> {
+  @override
+  void initState() {
+    super.initState();
 
-//   @override
-//   void initState() {
-//     super.initState();
+    Future.delayed(const Duration(seconds: 3), () async {
+      FirebaseAuth.instance.authStateChanges().listen((User? user) {
+        if (user == null) {
+          GoRouter.of(context).go(AppRoute.onboardingView);
+        } else {
+          GoRouter.of(context).go(AppRoute.navigationView);
+        }
+      });
+    });
+  }
 
-//     _controller = AnimationController(
-//       vsync: this,
-//       duration: const Duration(milliseconds: 1000),
-//     )..repeat(reverse: true);
-
-//     _animation = Tween<Offset>(
-//       begin: Offset(0, 0),
-//       end: Offset(0, -0.25),
-//     ).animate(CurvedAnimation(parent: _controller, curve: Curves.easeInOut));
-
-//     Future.delayed(const Duration(seconds: 5), () {
-//       GoRouter.of(context).go(AppRoute.onboardingView);
-//     });
-//   }
-
-//   @override
-//   void dispose() {
-//     _controller.dispose();
-//     super.dispose();
-//   }
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return Scaffold(
-//       backgroundColor: Colors.white,
-//       body: Center(
-//         child: SlideTransition(
-//           position: _animation,
-//           child: Image.asset(Assets.assetsImagesAppLogo, width: 250),
-//         ),
-//       ),
-//     );
-//   }
-// }
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Image.asset(Assets.imagesAppIcon, width: 60.w, height: 60.h),
+            SizedBox(height: 9.w),
+            Text('Darcom', style: AppStyles.semiBold18),
+          ],
+        ),
+      ),
+    );
+  }
+}

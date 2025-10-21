@@ -1,4 +1,5 @@
 import 'package:darcom_app/core/utils/app_padding.dart';
+import 'package:darcom_app/feature/home/data/model/product_model.dart';
 import 'package:darcom_app/feature/home/view/widgets/product_card.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
@@ -6,7 +7,7 @@ import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 class ProductsGridView extends StatelessWidget {
   const ProductsGridView({super.key, required this.products});
 
-  final List<Map<String, dynamic>> products;
+  final List<ProductModel> products;
 
   @override
   Widget build(BuildContext context) {
@@ -20,8 +21,7 @@ class ProductsGridView extends StatelessWidget {
         crossAxisSpacing: 12,
         itemCount: products.length,
         itemBuilder: (context, index) {
-          final product = products[index];
-          return ProductCard(product: product);
+          return ProductCard(product: products[index]);
         },
       ),
     );

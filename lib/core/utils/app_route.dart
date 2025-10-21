@@ -6,6 +6,7 @@ import 'package:darcom_app/feature/home/view/home_view.dart';
 import 'package:darcom_app/feature/home/view/search_view.dart';
 import 'package:darcom_app/feature/navigation/view/navigation_view.dart';
 import 'package:darcom_app/feature/onboarding/presentation/view/on_boarding_view.dart';
+import 'package:darcom_app/feature/splash/presentation/view/splash_view.dart';
 import 'package:go_router/go_router.dart';
 
 abstract class AppRoute {
@@ -17,11 +18,10 @@ abstract class AppRoute {
   static const String navigationView = '/NavigationView';
   static const String searchView = '/SearchView';
   static const String categoryView = '/CategoryView';
-  // static const String accountViewNavigationView';
 
   static final router = GoRouter(
     routes: [
-      GoRoute(path: '/', builder: (context, state) => NavigationView()),
+      GoRoute(path: '/', builder: (context, state) => SplashView()),
       GoRoute(
         path: forgotPasswordView,
         builder: (context, state) => const ForgotPasswordView(),

@@ -1,6 +1,6 @@
 import 'package:darcom_app/core/utils/app_colors.dart';
-import 'package:darcom_app/core/utils/app_images.dart';
 import 'package:darcom_app/core/utils/app_styles.dart';
+import 'package:darcom_app/feature/home/data/model/product_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -8,7 +8,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 class ProductCard extends StatelessWidget {
   const ProductCard({super.key, required this.product});
 
-  final Map<String, dynamic> product;
+  final ProductModel product;
 
   @override
   Widget build(BuildContext context) {
@@ -35,8 +35,8 @@ class ProductCard extends StatelessWidget {
                   topLeft: Radius.circular(12),
                   topRight: Radius.circular(12),
                 ),
-                child: Image.asset(
-                  product["image"] ?? Assets.imagesHeroFurniture,
+                child: Image.network(
+                  product.image,
                   width: double.infinity,
                   fit: BoxFit.fitWidth,
                 ),
@@ -69,27 +69,27 @@ class ProductCard extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  product["name"],
+                  product.name,
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
                 ),
                 Text(
-                  product["price"],
+                  product.price.toString(),
                   style: const TextStyle(fontWeight: FontWeight.bold),
                 ),
                 Row(
                   children: [
                     RatingBarIndicator(
                       //rating
-                      rating: product["rating"],
+                      rating: product.rate,
                       itemCount: 5,
-                      itemSize: 14, 
+                      itemSize: 14,
                       itemBuilder: (context, _) =>
                           Icon(Icons.star, color: AppColors.orange500),
                     ),
                     SizedBox(width: 3.w),
                     Text(
-                      product["rating"].toString(),
+                      product.rateCount.toString(),
                       style: AppStyles.regular13,
                     ),
                   ],

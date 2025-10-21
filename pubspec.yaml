@@ -29,6 +29,7 @@ environment:
 # versions available, run `flutter pub outdated`.
 dependencies:
   bloc: ^9.0.1
+  cached_network_image: ^3.4.1
   cloud_firestore: ^5.4.4
   cupertino_icons: ^1.0.8
   dartz: ^0.10.1
@@ -46,6 +47,7 @@ dependencies:
   flutter_svg: ^2.2.0
   go_router: ^16.2.4
   modal_progress_hud_nsn: ^0.5.1
+  shimmer: ^3.0.0
   smooth_page_indicator: ^1.2.1
 
 dev_dependencies:

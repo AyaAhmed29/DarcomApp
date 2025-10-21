@@ -50,6 +50,8 @@ abstract class AppColors {
   static const Color purple = Color(0xFF800080);
   static const Color teal = Color(0xFF008080);
   static const Color brown = Color(0xFFA52A2A);
+  static const Color grey = Color(0xFF808080);
+
 
   // Dynamic color based on theme brightness
 
