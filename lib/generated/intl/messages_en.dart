@@ -49,6 +49,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Search for items..."),
         "SearchResults": MessageLookupByLibrary.simpleMessage("Search Results"),
         "SeeAll": MessageLookupByLibrary.simpleMessage("See All"),
+        "ShopingNow": MessageLookupByLibrary.simpleMessage("Shoping Now"),
         "SortBy": MessageLookupByLibrary.simpleMessage("Sort By"),
         "Theme": MessageLookupByLibrary.simpleMessage("Theme"),
         "active": MessageLookupByLibrary.simpleMessage("Active"),

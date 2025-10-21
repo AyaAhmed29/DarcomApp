@@ -12,10 +12,10 @@ class GetCategoryCubit extends Cubit<GetCategoryState> {
   static GetCategoryCubit get(context) => BlocProvider.of(context);
 
   final HomeRepo homeRepo = HomeRepo();
-  bool _loaded = false; 
+  bool _loaded = false;
 
   void loadCategories() async {
-    if (_loaded) return; 
+    if (_loaded) return;
 
     emit(GetCategoryLoading());
 

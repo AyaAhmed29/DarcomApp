@@ -1219,6 +1219,16 @@ class S {
       args: [],
     );
   }
+
+  /// `Shoping Now`
+  String get ShopingNow {
+    return Intl.message(
+      'Shoping Now',
+      name: 'ShopingNow',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

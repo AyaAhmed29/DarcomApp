@@ -1,11 +1,13 @@
-
 import 'package:darcom_app/core/utils/app_colors.dart';
+import 'package:darcom_app/core/widgets/custom_cach_image.dart';
+import 'package:darcom_app/feature/home/data/model/slider_model.dart';
+import 'package:darcom_app/generated/l10n.dart';
 import 'package:flutter/material.dart';
 
 class OfferCard extends StatelessWidget {
-  final String image;
+  final SliderModel sliderModel;
 
-  const OfferCard({super.key, required this.image});
+  const OfferCard({super.key, required this.sliderModel});
 
   @override
   Widget build(BuildContext context) {
@@ -15,11 +17,10 @@ class OfferCard extends StatelessWidget {
         children: [
           ClipRRect(
             borderRadius: BorderRadius.circular(20),
-            child: Image.asset(
-              image,
+            child: CustomCachImage(
+              imageUrl: sliderModel.image,
               height: 180,
               width: double.infinity,
-              fit: BoxFit.cover,
             ),
           ),
           Container(
@@ -29,7 +30,10 @@ class OfferCard extends StatelessWidget {
               gradient: LinearGradient(
                 begin: Alignment.centerLeft,
                 end: Alignment.centerRight,
-                colors: [AppColors.black.withValues(alpha:  0.5), Colors.transparent],
+                colors: [
+                  AppColors.black.withValues(alpha: 0.5),
+                  Colors.transparent,
+                ],
               ),
             ),
             padding: const EdgeInsets.all(16),
@@ -38,8 +42,10 @@ class OfferCard extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                const Text(
-                  "عروض الصيف",
+                Text(
+                  sliderModel.title,
+
+                  // "عروض الصيف",
                   style: TextStyle(
                     color: AppColors.white,
                     fontSize: 22,
@@ -47,14 +53,16 @@ class OfferCard extends StatelessWidget {
                   ),
                 ),
                 const SizedBox(height: 4),
-                const Text(
-                  "خصم يصل إلى 40%",
+                Text(
+                  sliderModel.subtitle,
+
+                  // "خصم يصل إلى 40%",
                   style: TextStyle(color: Colors.white),
                 ),
                 const SizedBox(height: 10),
                 ElevatedButton(
                   onPressed: () {},
-                  child: const Text("تسوق الآن"),
+                  child: Text(S.of(context).shopNow),
                 ),
               ],
             ),

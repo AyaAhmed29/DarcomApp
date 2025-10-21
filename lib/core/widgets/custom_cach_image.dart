@@ -1,6 +1,5 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:darcom_app/core/utils/app_colors.dart';
-import 'package:darcom_app/core/utils/app_padding.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:shimmer/shimmer.dart';
@@ -18,26 +17,23 @@ class CustomCachImage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: AppPadding.horizontal18,
-      child: ClipRRect(
-        borderRadius: BorderRadius.circular(20),
-        child: CachedNetworkImage(
-          height: height ?? 125.h,
-          width: width ?? 130.w,
-          imageUrl: imageUrl,
+    return ClipRRect(
+      borderRadius: BorderRadius.circular(20),
+      child: CachedNetworkImage(
+        height: height ?? 125.h,
+        width: width ?? 130.w,
+        imageUrl: imageUrl,
 
-          fit: BoxFit.cover,
-          placeholder: (context, url) => Shimmer.fromColors(
-            baseColor: AppColors.pink.withValues(alpha: 0.3),
-            highlightColor: AppColors.pink.withValues(alpha: 0.1),
-            child: Container(height: 165.h, width: 168.w, color: Colors.white),
-          ),
+        fit: BoxFit.cover,
+        placeholder: (context, url) => Shimmer.fromColors(
+          baseColor: AppColors.orange700.withValues(alpha: 0.3),
+          highlightColor: AppColors.orange700.withValues(alpha: 0.1),
+          child: Container(height: 165.h, width: 168.w, color: Colors.white),
+        ),
 
-          errorWidget: (context, url, error) => Container(
-            color: AppColors.pink.withValues(alpha: 0.3),
-            child: Icon(Icons.error, size: 40),
-          ),
+        errorWidget: (context, url, error) => Container(
+          color: AppColors.orange700.withValues(alpha: 0.3),
+          child: Icon(Icons.error, size: 40),
         ),
       ),
     );
