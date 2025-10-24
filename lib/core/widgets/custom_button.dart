@@ -2,7 +2,7 @@ import 'package:darcom_app/core/utils/app_colors.dart';
 import 'package:flutter/material.dart';
 
 class CustomButton extends StatelessWidget {
-  const CustomButton({super.key, required this.text, required this.ontap});
+  const CustomButton({super.key, required this.text, required this.ontap, });
   final String text;
   final void Function() ontap;
   @override

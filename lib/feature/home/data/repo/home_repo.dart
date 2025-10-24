@@ -51,16 +51,16 @@ class HomeRepo {
   Future<Either<String, List<ProductModel>>> getProducts() async {
     try {
       final snapshot = await _refProducts.get();
-      final Products = snapshot.docs.map((doc) {
+      final products = snapshot.docs.map((doc) {
         final data = doc.data();
         return ProductModel.fromJson({'id': doc.id, ...data});
       }).toList();
 
-      if (Products.isEmpty) {
-        return const Left('No c found');
+      if (products.isEmpty) {
+        return const Left('No roduct found');
       }
 
-      return Right(Products);
+      return Right(products);
     } on FirebaseException catch (e) {
       return Left('Firebase error: ${e.message}');
     } catch (e) {
@@ -81,7 +81,7 @@ class HomeRepo {
           .where((product) {
             final name = product.name.toLowerCase();
             final search = query.toLowerCase();
-            return name.contains(search); 
+            return name.contains(search);
           })
           .toList();
 
@@ -94,6 +94,25 @@ class HomeRepo {
       return Left('Firebase error: ${e.message}');
     } catch (e) {
       return Left('Unknown error: $e');
+    }
+  }
+
+  static Future<Either<String, void>> saveSearchQuery(
+    String query,
+    String? userId,
+  ) async {
+    try {
+      if (query.trim().isEmpty) return const Left('Query is empty');
+
+      await FirebaseFirestore.instance.collection('search_history').add({
+        'query': query.trim(),
+        'userId': userId ?? 'guest',
+        'timestamp': FieldValue.serverTimestamp(),
+      });
+
+      return const Right(null);
+    } catch (e) {
+      return Left(e.toString());
     }
   }
 }

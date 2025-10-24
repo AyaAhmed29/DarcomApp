@@ -41,9 +41,11 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("السعر من الأعلى للأقل"),
         "PriceLowToHigh":
             MessageLookupByLibrary.simpleMessage("السعر من الأقل للأعلى"),
+        "Rate": MessageLookupByLibrary.simpleMessage("تقيمات"),
         "Recentsearches":
             MessageLookupByLibrary.simpleMessage("عمليات البحث الأخيرة"),
         "Result": MessageLookupByLibrary.simpleMessage("نتيجة"),
+        "Reviews": MessageLookupByLibrary.simpleMessage("التعليقات"),
         "SearchForItems":
             MessageLookupByLibrary.simpleMessage("ابحث عن الأثاث..."),
         "SearchResults": MessageLookupByLibrary.simpleMessage("نتائج البحث"),

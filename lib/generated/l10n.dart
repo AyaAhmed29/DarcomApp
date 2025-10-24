@@ -1229,6 +1229,26 @@ class S {
       args: [],
     );
   }
+
+  /// `Rates`
+  String get Rate {
+    return Intl.message(
+      'Rates',
+      name: 'Rate',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Reviews`
+  String get Reviews {
+    return Intl.message(
+      'Reviews',
+      name: 'Reviews',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

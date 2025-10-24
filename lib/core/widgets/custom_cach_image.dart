@@ -1,26 +1,29 @@
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:darcom_app/core/utils/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:shimmer/shimmer.dart';
+
+import 'package:darcom_app/core/utils/app_colors.dart';
 
 class CustomCachImage extends StatelessWidget {
   const CustomCachImage({
     super.key,
     required this.imageUrl,
     this.height,
+    this.borderRadius = const BorderRadius.all(Radius.circular(20)),
     this.width,
   });
   final String imageUrl;
   final double? height;
   final double? width;
+  final BorderRadiusGeometry borderRadius;
 
   @override
   Widget build(BuildContext context) {
     return ClipRRect(
-      borderRadius: BorderRadius.circular(20),
+      borderRadius: borderRadius,
       child: CachedNetworkImage(
-        height: height ?? 125.h,
+        height: height,
         width: width ?? 130.w,
         imageUrl: imageUrl,
 

@@ -4,7 +4,8 @@ import 'package:go_router/go_router.dart';
 
 class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   final String title;
-  const CustomAppBar({super.key, required this.title});
+  final List<Widget>? actions;
+  const CustomAppBar({super.key, required this.title, this.actions});
 
   @override
   Widget build(BuildContext context) {
@@ -17,6 +18,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
       ),
       centerTitle: true,
       title: Text(title, style: AppStyles.semiBold18),
+      actions:actions,
     );
   }
 

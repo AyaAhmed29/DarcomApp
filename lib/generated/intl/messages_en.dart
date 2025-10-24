@@ -42,9 +42,11 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Price High to Low"),
         "PriceLowToHigh":
             MessageLookupByLibrary.simpleMessage("Price Low to High"),
+        "Rate": MessageLookupByLibrary.simpleMessage("Rates"),
         "Recentsearches":
             MessageLookupByLibrary.simpleMessage("Recent searches"),
         "Result": MessageLookupByLibrary.simpleMessage("Result"),
+        "Reviews": MessageLookupByLibrary.simpleMessage("Reviews"),
         "SearchForItems":
             MessageLookupByLibrary.simpleMessage("Search for items..."),
         "SearchResults": MessageLookupByLibrary.simpleMessage("Search Results"),
